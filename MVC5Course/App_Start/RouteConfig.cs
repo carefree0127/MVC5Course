@@ -17,6 +17,7 @@ namespace MVC5Course
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 //url: "{action}/{controller}/{id}",
+                //可自訂URL，可把關鍵字加在網址
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
