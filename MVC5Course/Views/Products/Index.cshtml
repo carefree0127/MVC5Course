@@ -1,7 +1,17 @@
 ﻿@model IEnumerable<MVC5Course.Models.Product>
-
+<script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
     ViewBag.Title = "Index";
+    @*if (TempData["Msg"] != null)
+    {
+        var msg = TempData["Msg"];
+        <script>
+            $(function () {
+                
+                alert(msg);
+            })
+        </script>
+    }*@
 }
 
 <h2>Index</h2>
@@ -11,9 +21,9 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ProductId)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.ProductName)
         </th>
@@ -32,10 +42,10 @@
 @*Model 從Controller傳過來的資料*@
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @*(modelItem => item.ProductId) -> Lambda*@
+        @*(modelItem => item.ProductId) -> Lambda*@
+        @*<td>            
             @Html.DisplayFor(modelItem => item.ProductId)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.ProductName)
         </td>
@@ -45,7 +55,9 @@
             改單一頁面的顯示*@
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Active)
+            @*把下拉選單改為Lebel*@
+            @(item.Active)
+            @*@Html.DisplayFor(modelItem => item.Active)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Stock)
