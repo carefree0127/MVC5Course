@@ -11,7 +11,6 @@ namespace MVC5Course.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Product
     {
@@ -21,24 +20,9 @@ namespace MVC5Course.Models
         }
     
         public int ProductId { get; set; }
-        
-        [Required(ErrorMessage="商品名稱為必填欄位")]
-        //加上屬性，前後端驗證同時完成，可把瀏覽器的js停用檢視
-        //屬性內可以自訂錯誤訊息，加上ErrorMessage
-        [MinLength(3),MaxLength(30)]//限制欄位值的長度上下限
-        [RegularExpression("(.+)-(.+)",ErrorMessage="請輸入正確的商品名稱格式")]
         public string ProductName { get; set; }
-
-        [Required]
-        [Range(0,9999,ErrorMessage="請設定正確的商品價格範圍")]
-        //限制合理的商品價格範圍
         public Nullable<decimal> Price { get; set; }
-
-        [Required]
         public Nullable<bool> Active { get; set; }
-
-        [Required]
-        [Range(0, 9999, ErrorMessage = "請設定正確的商品數量範圍")]
         public Nullable<decimal> Stock { get; set; }
     
         public virtual ICollection<OrderLine> OrderLine { get; set; }
