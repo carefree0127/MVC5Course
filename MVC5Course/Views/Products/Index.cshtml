@@ -29,9 +29,11 @@
         <th></th>
     </tr>
 
+@*Model 從Controller傳過來的資料*@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @*(modelItem => item.ProductId) -> Lambda*@
             @Html.DisplayFor(modelItem => item.ProductId)
         </td>
         <td>
@@ -39,6 +41,8 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Price)
+            @*@string.Format("{0:0}", item.Price)
+            改單一頁面的顯示*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Active)
