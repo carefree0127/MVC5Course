@@ -15,15 +15,19 @@ namespace MVC5Course.Controllers
         private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(bool Active = true)//model binding
         {
             //return View(db.Product.ToList());
             //return View(db.Product.Take(10));//取10筆資料
-            return View(db.Product.OrderByDescending( p=>p.ProductId ).Take(10));
+            var data = db.Product
+                .Where(p => p.Active.Value == Active)
+                .OrderByDescending(p => p.ProductId).Take(10);
+            return View(data); //View中拿到的 @Model即是 data，資料型別會一致
         }
 
         // GET: Products/Details/5
-        public ActionResult Details(int? id)
+        // GET: Products/Details?id=5 -> QueryString 
+        public ActionResult Details(int? id)//Form Name叫id也接的到 -> model binding模型繫結(把資料寫入模型的參數裡)
         {
             if (id == null)
             {
