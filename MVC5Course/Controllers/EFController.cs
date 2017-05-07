@@ -79,10 +79,20 @@ namespace MVC5Course.Controllers
         public ActionResult Delete(int id)
         {
             var data = db.Product.Find(id);
+
+            //因為會有一個orderLine關聯 (導覽屬性)
+            //foreach (var item in data.OrderLine.ToList())
+            //{
+            //    db.OrderLine.Remove(item);
+            //}
+
+            //等於上面的foreach
+            db.OrderLine.RemoveRange(data.OrderLine);
+
             //if (data != null) {
-                db.Product.Remove(data);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            db.Product.Remove(data);
+            db.SaveChanges();
+            return RedirectToAction("Index");
             //}
             
             //return View();
