@@ -37,7 +37,11 @@
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.Active)*@
+            @*修改model*@
             @Html.DisplayFor(modelItem => item.訂單數量)
+
+            @*不改model*@
+            @*@Html.DisplayFor(modelItem => item.OrderLine.Count())*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Stock)

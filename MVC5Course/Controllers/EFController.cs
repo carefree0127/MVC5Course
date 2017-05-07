@@ -11,10 +11,12 @@ namespace MVC5Course.Controllers
     {
         FabricsEntities db = new FabricsEntities(); //全類別共用
 
+        #region 20170507: 商品CRUD
+
         #region 商品列表
         // GET: EF
         public ActionResult Index()
-        {    
+        {
             var all = db.Product.AsQueryable(); // 選用IEnumerable，當資料量大時會有效能問題
 
             var data = all.Where(p => p.Active == true && p.ProductName.Contains("Black"));
@@ -27,7 +29,6 @@ namespace MVC5Course.Controllers
             return View(data);
         }
         #endregion
-
 
         #region 新增資料
         public ActionResult Create()
@@ -43,7 +44,7 @@ namespace MVC5Course.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
+
             return View(product);
         }
         #endregion
@@ -55,9 +56,10 @@ namespace MVC5Course.Controllers
             return View(data);
         }
         [HttpPost]
-        public ActionResult Edit(int id,Product product)
+        public ActionResult Edit(int id, Product product)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
 
                 var item = db.Product.Find(id);
 
@@ -65,7 +67,7 @@ namespace MVC5Course.Controllers
                 item.Price = product.Price;
                 item.Active = product.Active;
                 item.Stock = product.Stock;
-                                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -94,7 +96,7 @@ namespace MVC5Course.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
             //}
-            
+
             //return View();
         }
         #endregion
@@ -106,5 +108,10 @@ namespace MVC5Course.Controllers
             return View(data);
         }
         #endregion
+
+        #endregion
+
+
+
     }
 }
