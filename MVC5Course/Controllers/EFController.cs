@@ -120,10 +120,21 @@ namespace MVC5Course.Controllers
         #region 單一商品列表
         public ActionResult Details(int id)
         {
-            var data = db.Product.Find(id);
+            //var data = db.Product.Find(id);
+            var data = db.Database.SqlQuery<Product>("SELECT * FROM dbo.Product WHERE ProductId=@p0", id).FirstOrDefault();
+            //參數使用規則 @p0, @p1, @p2
+            //注意型別 需轉型 FirstOrDefault()
             return View(data);
         }
         #endregion
+
+        #region 刪除所有資料
+        public void RemoveAll()
+        {
+            db.Database.ExecuteSqlCommand("DELETE * FROM dbo.Product");
+        }
+        #endregion
+
 
         #endregion
 
