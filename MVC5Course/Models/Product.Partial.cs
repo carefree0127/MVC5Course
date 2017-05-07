@@ -29,14 +29,14 @@ namespace MVC5Course.Models
         }
     }
     
-    public partial class ProductMetaData
+    public partial class ProductMetaData //放驗證屬性
     {
         [Required]
         public int ProductId { get; set; }
 
         [Required(ErrorMessage = "請輸入商品名稱")]
-        [MinLength(3), MaxLength(30)]
-        [RegularExpression("(.+)-(.+)", ErrorMessage = "商品名稱格式錯誤")]
+        //[MinLength(3), MaxLength(30)]
+        //[RegularExpression("(.+)-(.+)", ErrorMessage = "商品名稱格式錯誤")]
         public string ProductName { get; set; }
         [Required]
         [Range(0, 999999, ErrorMessage = "請設定正確的商品價格範圍")]
@@ -44,7 +44,7 @@ namespace MVC5Course.Models
         [Required]
         public Nullable<bool> Active { get; set; }
         [Required]
-        [Range(0, 100, ErrorMessage = "請設定正確的商品庫存數量")]
+        //[Range(0, 100, ErrorMessage = "請設定正確的商品庫存數量")]
         public Nullable<decimal> Stock { get; set; }
 
 
