@@ -20,7 +20,7 @@ namespace MVC5Course.Controllers
         {
             var all = db.Product.AsQueryable(); // 選用IEnumerable，當資料量大時會有效能問題
 
-            var data = all.Where(p => p.isDeleted==false && p.Active == true && p.ProductName.Contains("Black"));
+            var data = all.Where(p => p.is刪除==false && p.Active == true && p.ProductName.Contains("Black"));
 
             //注意: 下面三種回傳型別
             //var data1 = all.Where(p => p.ProductId == 1);
@@ -96,7 +96,7 @@ namespace MVC5Course.Controllers
             //db.Product.Remove(data);
 
             //改為修改isDeleted欄位
-            data.isDeleted = true;
+            data.is刪除 = true;
 
             //偵錯技巧，執行時頁面出現錯誤訊息可把Exception Catch下來
             try
