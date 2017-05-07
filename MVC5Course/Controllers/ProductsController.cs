@@ -13,7 +13,7 @@ namespace MVC5Course.Controllers
 {
     public class ProductsController : Controller
     {
-        private FabricsEntities db = new FabricsEntities();
+        private FabricsEntities db = new FabricsEntities(); //ADO.NET Data Provider 
 
         #region 20170507 用ViewModel建立資料
         public ActionResult CreateProduct()
@@ -81,8 +81,11 @@ namespace MVC5Course.Controllers
         {
             if (ModelState.IsValid)//資料驗證 -> model
             {
+                // 與Entity FrameWork相關的語法
                 db.Product.Add(product);
                 db.SaveChanges();
+                //
+
                 //新增成功訊息在Index頁顯示
                 TempData["Msg"] = "新增成功!";
                 return RedirectToAction("Index");

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
+using System.Web.Services.Description;
 
 namespace MVC5Course.Models.ViewModel
 {
@@ -13,6 +15,8 @@ namespace MVC5Course.Models.ViewModel
         /// </summary>
         public int ProductId { get; set; }
 
+        //自訂驗證
+        //[FabricsRequired(_Type=1,ErrorMessage="欄位為必填")]
         [Required]
         [MinLength(5)]
         public string ProductName { get; set; }
