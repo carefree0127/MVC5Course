@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using System.Data.Entity.Validation;
 
 namespace MVC5Course.Controllers
 {
@@ -19,7 +20,7 @@ namespace MVC5Course.Controllers
         {
             var all = db.Product.AsQueryable(); // 選用IEnumerable，當資料量大時會有效能問題
 
-            var data = all.Where(p => p.Active == true && p.ProductName.Contains("Black"));
+            var data = all.Where(p => p.isDeleted==false && p.Active == true && p.ProductName.Contains("Black"));
 
             //注意: 下面三種回傳型別
             //var data1 = all.Where(p => p.ProductId == 1);
@@ -89,11 +90,26 @@ namespace MVC5Course.Controllers
             //}
 
             //等於上面的foreach
-            db.OrderLine.RemoveRange(data.OrderLine);
+            //db.OrderLine.RemoveRange(data.OrderLine);
 
             //if (data != null) {
-            db.Product.Remove(data);
-            db.SaveChanges();
+            //db.Product.Remove(data);
+
+            //改為修改isDeleted欄位
+            data.isDeleted = true;
+
+            //偵錯技巧，執行時頁面出現錯誤訊息可把Exception Catch下來
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+
+                throw;
+            }
+
+            
             return RedirectToAction("Index");
             //}
 
