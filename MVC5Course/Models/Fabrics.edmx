@@ -4,25 +4,25 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FabricsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="FabricsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ClientId" />
           </Key>
-          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="40" />
-          <Property Name="MiddleName" Type="varchar" MaxLength="40" />
-          <Property Name="LastName" Type="varchar" MaxLength="40" />
-          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="ClientId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FirstName" MaxLength="40" Type="varchar" />
+          <Property Name="MiddleName" MaxLength="40" Type="varchar" />
+          <Property Name="LastName" MaxLength="40" Type="varchar" />
+          <Property Name="Gender" MaxLength="1" Type="char" />
           <Property Name="DateOfBirth" Type="datetime" />
           <Property Name="CreditRating" Type="float" />
-          <Property Name="XCode" Type="char" MaxLength="7" />
+          <Property Name="XCode" MaxLength="7" Type="char" />
           <Property Name="OccupationId" Type="int" />
-          <Property Name="TelephoneNumber" Type="varchar" MaxLength="20" />
-          <Property Name="Street1" Type="varchar" MaxLength="100" />
-          <Property Name="Street2" Type="varchar" MaxLength="100" />
-          <Property Name="City" Type="varchar" MaxLength="100" />
-          <Property Name="ZipCode" Type="varchar" MaxLength="15" />
+          <Property Name="TelephoneNumber" MaxLength="20" Type="varchar" />
+          <Property Name="Street1" MaxLength="100" Type="varchar" />
+          <Property Name="Street2" MaxLength="100" Type="varchar" />
+          <Property Name="City" MaxLength="100" Type="varchar" />
+          <Property Name="ZipCode" MaxLength="15" Type="varchar" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Latitude" Type="float" />
           <Property Name="Notes" Type="varchar(max)" />
@@ -31,45 +31,45 @@
           <Key>
             <PropertyRef Name="OccupationId" />
           </Key>
-          <Property Name="OccupationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OccupationName" Type="varchar" MaxLength="60" />
+          <Property Name="OccupationId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="OccupationName" MaxLength="60" Type="varchar" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
-          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Nullable="false" Type="int" />
           <Property Name="ClientId" Type="int" />
           <Property Name="OrderDate" Type="datetime" />
-          <Property Name="OrderTotal" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="OrderStatus" Type="char" MaxLength="1" />
+          <Property Name="OrderTotal" Precision="18" Scale="2" Type="numeric" />
+          <Property Name="OrderStatus" MaxLength="1" Type="char" />
         </EntityType>
         <EntityType Name="OrderLine">
           <Key>
             <PropertyRef Name="OrderId" />
             <PropertyRef Name="LineNumber" />
           </Key>
-          <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="LineNumber" Type="int" Nullable="false" />
-          <Property Name="ProductId" Type="int" Nullable="false" />
-          <Property Name="Qty" Type="numeric" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="LineTotal" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OrderId" Nullable="false" Type="int" />
+          <Property Name="LineNumber" Nullable="false" Type="int" />
+          <Property Name="ProductId" Nullable="false" Type="int" />
+          <Property Name="Qty" Nullable="false" Precision="18" Scale="3" Type="numeric" />
+          <Property Name="LineTotal" Nullable="false" Precision="18" Scale="2" Type="numeric" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductName" Type="nvarchar" MaxLength="80" />
+          <Property Name="ProductId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="ProductName" MaxLength="80" Type="nvarchar" />
           <Property Name="Price" Type="smallmoney" />
           <Property Name="Active" Type="bit" />
-          <Property Name="Stock" Type="numeric" Precision="18" Scale="3" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stock" Precision="18" Scale="3" Type="numeric" />
+          <Property Name="isDeleted" Nullable="false" Type="bit" />
+          <Property Name="CreatedOn" Nullable="false" StoreGeneratedPattern="Computed" Type="datetime" />
         </EntityType>
         <Association Name="FK_Client_Occupation">
-          <End Role="Occupation" Type="Self.Occupation" Multiplicity="0..1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <End Type="Self.Occupation" Multiplicity="0..1" Role="Occupation" />
+          <End Type="Self.Client" Multiplicity="*" Role="Client" />
           <ReferentialConstraint>
             <Principal Role="Occupation">
               <PropertyRef Name="OccupationId" />
@@ -80,8 +80,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Order_ClientId">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="Self.Client" Multiplicity="0..1" Role="Client" />
+          <End Type="Self.Order" Multiplicity="*" Role="Order" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="ClientId" />
@@ -92,8 +92,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_OrderLine_OrderId">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
+          <End Type="Self.Order" Multiplicity="1" Role="Order" />
+          <End Type="Self.OrderLine" Multiplicity="*" Role="OrderLine" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="OrderId" />
@@ -104,8 +104,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_OrderLine_ProductId">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
+          <End Type="Self.Product" Multiplicity="1" Role="Product" />
+          <End Type="Self.OrderLine" Multiplicity="*" Role="OrderLine" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ProductId" />
@@ -122,20 +122,20 @@
           <EntitySet Name="OrderLine" EntityType="Self.OrderLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Client_Occupation" Association="Self.FK_Client_Occupation">
-            <End Role="Occupation" EntitySet="Occupation" />
-            <End Role="Client" EntitySet="Client" />
+            <End EntitySet="Occupation" Role="Occupation" />
+            <End EntitySet="Client" Role="Client" />
           </AssociationSet>
           <AssociationSet Name="fk_Order_ClientId" Association="Self.fk_Order_ClientId">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Order" EntitySet="Order" />
+            <End EntitySet="Client" Role="Client" />
+            <End EntitySet="Order" Role="Order" />
           </AssociationSet>
           <AssociationSet Name="fk_OrderLine_OrderId" Association="Self.fk_OrderLine_OrderId">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="OrderLine" EntitySet="OrderLine" />
+            <End EntitySet="Order" Role="Order" />
+            <End EntitySet="OrderLine" Role="OrderLine" />
           </AssociationSet>
           <AssociationSet Name="fk_OrderLine_ProductId" Association="Self.fk_OrderLine_ProductId">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="OrderLine" EntitySet="OrderLine" />
+            <End EntitySet="Product" Role="Product" />
+            <End EntitySet="OrderLine" Role="OrderLine" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -209,7 +209,7 @@
           <Property Name="Active" Type="Boolean" />
           <Property Name="Stock" Type="Decimal" Precision="18" Scale="3" />
           <NavigationProperty Name="OrderLine" Relationship="Self.fk_OrderLine_ProductId" FromRole="Product" ToRole="OrderLine" />
-          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="isDeleted" Nullable="false" Type="Boolean" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <Association Name="FK_Client_Occupation">
