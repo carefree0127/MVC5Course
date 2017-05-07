@@ -15,6 +15,28 @@ namespace MVC5Course.Controllers
     {
         private FabricsEntities db = new FabricsEntities();
 
+        #region 20170507 用ViewModel建立資料
+        public ActionResult CreateProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateProduct(
+            [Bind(Include = "ProductName,Price,Stock")]//只接受這些欄位的model binding，避免前端手動新增欄位
+            ProductLiteVM data)//指定Bind欄位model不要加驗證 -> 維護性需要考量
+        {
+            if (ModelState.IsValid) {//下中斷點偵錯，可查看data接到什麼資料
+                //TODO: 儲存資料進資料庫
+                return RedirectToAction("ListProducts");
+            }
+
+            //驗證失敗，繼續顯示原本的表單
+            return View();
+        }
+        #endregion
+
+        #region 20170506: 建立時預設的
         // GET: Products
         public ActionResult Index(bool Active = true)//model binding
         {
@@ -66,7 +88,7 @@ namespace MVC5Course.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.product = product;//弱型別，動態
+            ViewBag.product = product;//弱型別，動態，沒有提示可用
 
             return View(product); //強型別，只能傳一個model，有多個model要傳遞的話要用ViewBag或者定義一個class去包
         }
@@ -136,7 +158,9 @@ namespace MVC5Course.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
 
+        #region 20170506: 使用ViewModel，並透過Entity Framework查詢資料
         //ViewModel的使用，注意ViewModel新增時資料內容類別要清空
         public ActionResult ListProducts()
         {
@@ -152,5 +176,6 @@ namespace MVC5Course.Controllers
             return View(data);
 
         }
+        #endregion
     }
 }
