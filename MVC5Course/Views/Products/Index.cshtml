@@ -2,18 +2,19 @@
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
     ViewBag.Title = "Index";
-    @*if (TempData["Msg"] != null)
-    {
-        var msg = TempData["Msg"];
-        <script>
-            $(function () {
-                
-                alert(msg);
-            })
-        </script>
-    }*@
-}
 
+    //ViewBag 與 ViewData都是弱型別，需要轉型才能使用
+    var data1 = ViewData["ppp"] as IEnumerable<MVC5Course.Models.Product>;
+    var data2 = ViewBag.qqq as IEnumerable<MVC5Course.Models.Product>;
+
+    if (ViewBag.qqq == ViewData["qqq"]) {
+
+    }
+}
+@if (TempData["CP_Result"] != null)
+{
+    <h1>@TempData["CP_Result"]</h1>
+}
 <h2>Index</h2>
 
 <p>

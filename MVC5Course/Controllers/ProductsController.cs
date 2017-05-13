@@ -31,6 +31,9 @@ namespace MVC5Course.Controllers
             ProductLiteVM data)//指定Bind欄位model不要加驗證 -> 維護性需要考量
         {
             if (ModelState.IsValid) {//下中斷點偵錯，可查看data接到什麼資料
+
+                TempData["CP_Result"] = "商品資料新增成功";
+
                 //TODO: 儲存資料進資料庫
                 return RedirectToAction("ListProducts");
             }
@@ -57,8 +60,22 @@ namespace MVC5Course.Controllers
             //           .OrderByDescending(p => p.ProductId).Take(10);
             //將邏輯移到ProductRepository
             var data = repo.getProduct列表頁所有資料(Active);//showAll: false 具名參數的使用
+            //return View(data);
 
-            return View(data); //View中拿到的 @Model即是 data，資料型別會一致
+
+            #region 把資料傳到View裡使用的方式有四種            
+            //強型別
+            ViewData.Model = data;
+            //弱型別 以下三種寫法      
+            ViewData["ppp"] = data;
+            ViewBag.qqq = data;
+            //-----上面兩個弱型別骨子裡一樣
+            TempData["zzz"] = data;
+            //被讀過一次就會被刪除，通常用於表單新增成功，POST導頁，骨子裡是Session
+            #endregion
+
+
+            return View(); //View中拿到的 @Model即是 data，資料型別會一致
         }
 
         // GET: Products/Details/5
@@ -109,8 +126,8 @@ namespace MVC5Course.Controllers
                 //
 
                 //新增成功訊息在Index頁顯示
-                TempData["Msg"] = "新增成功!";
-                return RedirectToAction("Index");
+                TempData["CP_Result"] = "商品資料新增成功";
+                return RedirectToAction("ListProducts");
             }
 
             ViewBag.product = product;//弱型別，動態，沒有提示可用
@@ -202,7 +219,9 @@ namespace MVC5Course.Controllers
 
         #region 20170506: 使用ViewModel，並透過Entity Framework查詢資料
         //ViewModel的使用，注意ViewModel新增時資料內容類別要清空
-        public ActionResult ListProducts()
+        //FormCollection要用HTTP POST
+        //LINQ TO ENTITY轉型失敗 -> 先用區域變數存資料
+        public ActionResult ListProducts(string q)//表單送出，只要有ModelBinding就會有ModelState -> 才會套用到HTML
         {
             //var data = db.Product
             //    .Where(p => p.Active.Value == true)
@@ -213,7 +232,14 @@ namespace MVC5Course.Controllers
             //        Stock = p.Stock
             //    })
             //    .Take(10);
-            var data = repo.getProduct列表頁所有資料(true)
+
+            var data = repo.getProduct列表頁所有資料(true);
+
+            if (!String.IsNullOrEmpty(q)) {
+                data = data.Where(p => p.ProductName.Contains(q));
+            }
+
+            ViewData.Model = data
                 .Select(p => new ProductLiteVM()
                 {
                     ProductId = p.ProductId,
@@ -222,7 +248,7 @@ namespace MVC5Course.Controllers
                     Stock = p.Stock
                 });//Select 可以寫在Repository
 
-            return View(data);
+            return View();
 
         }
         #endregion
