@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC5Course.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,8 @@ namespace MVC5Course.Controllers
 {
     public class HomeController : Controller
     {
+        private FabricsEntities db = new FabricsEntities();
+
         public ActionResult Index()
         {
             return View();
@@ -32,7 +35,7 @@ namespace MVC5Course.Controllers
             return View();
         }
 
-        #region GetFile
+        #region 練習 FileResult 使用方式
         public ActionResult GetFile()
         {
             ////讀取圖片
@@ -41,5 +44,14 @@ namespace MVC5Course.Controllers
             return File(Server.MapPath("~/Content/20170513.png"), "image/png", "NewName");
         }
         #endregion
+
+        #region 練習 JsonResult 使用方式
+        public ActionResult GetJson()
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+            return Json(db.Product.Take(5), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
     }
 }
