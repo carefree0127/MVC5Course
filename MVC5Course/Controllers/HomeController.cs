@@ -31,5 +31,15 @@ namespace MVC5Course.Controllers
         {
             return View();
         }
+
+        #region GetFile
+        public ActionResult GetFile()
+        {
+            ////讀取圖片
+            //return File(Server.MapPath("~/Content/20170513.png"), "image/png");
+            //強迫下載圖片，並改名
+            return File(Server.MapPath("~/Content/20170513.png"), "image/png", "NewName");
+        }
+        #endregion
     }
 }
