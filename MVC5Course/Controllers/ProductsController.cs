@@ -47,13 +47,15 @@ namespace MVC5Course.Controllers
         // GET: Products
         public ActionResult Index(bool Active = true)//model binding
         {
+            #region EF取資料語法 篩選條件
             //return View(db.Product.ToList());
             //return View(db.Product.Take(10));//取10筆資料
 
             //var data = db.Product
             //    .Where(p => p.Active.HasValue && p.Active.Value == Active)
             //    .OrderByDescending(p => p.ProductId).Take(10);
-
+            #endregion
+            
             //repo.All() //取得所有資料
             //var data = repo.All()
             //           .Where(p => p.Active.HasValue && p.Active.Value == Active)
@@ -61,8 +63,7 @@ namespace MVC5Course.Controllers
             //將邏輯移到ProductRepository
             var data = repo.getProduct列表頁所有資料(Active);//showAll: false 具名參數的使用
             //return View(data);
-
-
+            
             #region 把資料傳到View裡使用的方式有四種            
             //強型別
             ViewData.Model = data;
@@ -221,8 +222,10 @@ namespace MVC5Course.Controllers
         //ViewModel的使用，注意ViewModel新增時資料內容類別要清空
         //FormCollection要用HTTP POST
         //LINQ TO ENTITY轉型失敗 -> 先用區域變數存資料
-        public ActionResult ListProducts(string q,int Stock_S=0,int Stock_E=9999)//表單送出，只要有ModelBinding就會有ModelState -> 才會套用到HTML
+        public ActionResult ListProducts(ProductSearchVM Mysearch)//表單送出，只要有ModelBinding就會有ModelState -> 才會套用到HTML
+                                          //弱型別 string q,int Stock_S=0,int Stock_E=9999
         {
+            #region 使用EF搭配LINQ取得資料
             //var data = db.Product
             //    .Where(p => p.Active.Value == true)
             //    .Select(p => new ProductLiteVM() { 
@@ -232,13 +235,29 @@ namespace MVC5Course.Controllers
             //        Stock = p.Stock
             //    })
             //    .Take(10);
+            #endregion
 
+            #region 改用Repository、在列表頁新增篩選條件(單一欄位搜尋、多欄位搜尋)
             var data = repo.getProduct列表頁所有資料(true);
 
-            if (!String.IsNullOrEmpty(q)) {
-                data = data.Where(p => p.ProductName.Contains(q));
-            }
-            data = data.Where(p => p.Stock > Stock_S && p.Stock < Stock_E);
+            #region 弱型別與強型別的寫法
+            //if (!String.IsNullOrEmpty(q))
+            //{
+            //    data = data.Where(p => p.ProductName.Contains(q));
+            //}
+            //data = data.Where(p => p.Stock > Stock_S && p.Stock < Stock_E);
+
+            //if (ModelState.IsValid)//強型別判斷ModelState，如果有問題就不判斷
+            //{
+                if (!String.IsNullOrEmpty(Mysearch.q))
+                {
+                    data = data.Where(p => p.ProductName.Contains(Mysearch.q));
+                }
+                data = data.Where(p => p.Stock > Mysearch.Stock_S && p.Stock < Mysearch.Stock_E);
+
+            //}
+
+            #endregion
 
             ViewData.Model = data
                 .Select(p => new ProductLiteVM()
@@ -248,6 +267,8 @@ namespace MVC5Course.Controllers
                     Price = p.Price,
                     Stock = p.Stock
                 });//Select 可以寫在Repository
+
+            #endregion
 
             return View();
 
