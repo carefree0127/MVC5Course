@@ -124,6 +124,7 @@ namespace MVC5Course.Controllers
             var data = db.Database.SqlQuery<Product>("SELECT * FROM dbo.Product WHERE ProductId=@p0", id).FirstOrDefault();
             //參數使用規則 @p0, @p1, @p2
             //注意型別 需轉型 FirstOrDefault()
+            //注意: 資料庫不同會有影響
             return View(data);
         }
         #endregion

@@ -13,7 +13,11 @@ namespace MVC5Course.Controllers
 {
     public class ProductsController : Controller
     {
-        private FabricsEntities db = new FabricsEntities(); //ADO.NET Data Provider 
+        //ADO.NET Data Provider
+        //private FabricsEntities db = new FabricsEntities();  
+
+        //加入Repository
+        ProductRepository repo = RepositoryHelper.GetProductRepository();
 
         #region 20170507 用ViewModel建立資料
         public ActionResult CreateProduct()
@@ -42,9 +46,18 @@ namespace MVC5Course.Controllers
         {
             //return View(db.Product.ToList());
             //return View(db.Product.Take(10));//取10筆資料
-            var data = db.Product
-                .Where(p => p.Active.HasValue && p.Active.Value == Active)
-                .OrderByDescending(p => p.ProductId).Take(10);
+
+            //var data = db.Product
+            //    .Where(p => p.Active.HasValue && p.Active.Value == Active)
+            //    .OrderByDescending(p => p.ProductId).Take(10);
+
+            //repo.All() //取得所有資料
+            //var data = repo.All()
+            //           .Where(p => p.Active.HasValue && p.Active.Value == Active)
+            //           .OrderByDescending(p => p.ProductId).Take(10);
+            //將邏輯移到ProductRepository
+            var data = repo.getProduct列表頁所有資料(Active);//showAll: false 具名參數的使用
+
             return View(data); //View中拿到的 @Model即是 data，資料型別會一致
         }
 
@@ -56,7 +69,12 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+
+            //Product product = db.Product.Find(id);
+            //找到 ProductRepository 把邏輯移進去
+            Product product = repo.get單筆資料ByProductID(id.Value);
+
+
             if (product == null)
             {
                 return HttpNotFound();
@@ -82,8 +100,12 @@ namespace MVC5Course.Controllers
             if (ModelState.IsValid)//資料驗證 -> model
             {
                 // 與Entity FrameWork相關的語法
-                db.Product.Add(product);
-                db.SaveChanges();
+                //db.Product.Add(product);
+                //db.SaveChanges();
+                //
+                //改用Repository
+                repo.Add(product);
+                repo.UnitOfWork.Commit();
                 //
 
                 //新增成功訊息在Index頁顯示
@@ -103,7 +125,9 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            //Product product = db.Product.Find(id);
+            //改用Repository
+            Product product = repo.get單筆資料ByProductID(id.Value);
             if (product == null)
             {
                 return HttpNotFound();
@@ -120,8 +144,11 @@ namespace MVC5Course.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(product).State = EntityState.Modified;
+                //db.SaveChanges();
+                //改用Repository 擴充ProductRepository Update方法
+                repo.Update(product);
+                repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -134,7 +161,9 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            //Product product = db.Product.Find(id);
+            //改用Repository
+            Product product = repo.get單筆資料ByProductID(id.Value);
             if (product == null)
             {
                 return HttpNotFound();
@@ -147,35 +176,52 @@ namespace MVC5Course.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Product.Find(id);
-            db.Product.Remove(product);
-            db.SaveChanges();
+            //Product product = db.Product.Find(id);
+            //db.Product.Remove(product);
+            //db.SaveChanges();
+            //改用Repository
+            Product product = repo.get單筆資料ByProductID(id);
+
+            //關閉資料驗證
+            repo.UnitOfWork.Context.Configuration.ValidateOnSaveEnabled = false;
+
+            repo.Delete(product);
+            repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
         #endregion
 
         #region 20170506: 使用ViewModel，並透過Entity Framework查詢資料
         //ViewModel的使用，注意ViewModel新增時資料內容類別要清空
         public ActionResult ListProducts()
         {
-            var data = db.Product
-                .Where(p => p.Active.Value == true)
-                .Select(p => new ProductLiteVM() { 
+            //var data = db.Product
+            //    .Where(p => p.Active.Value == true)
+            //    .Select(p => new ProductLiteVM() { 
+            //        ProductId = p.ProductId,
+            //        ProductName = p.ProductName,
+            //        Price = p.Price,
+            //        Stock = p.Stock
+            //    })
+            //    .Take(10);
+            var data = repo.getProduct列表頁所有資料(true)
+                .Select(p => new ProductLiteVM()
+                {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                     Price = p.Price,
                     Stock = p.Stock
-                })
-                .Take(10);
+                });//Select 可以寫在Repository
+
             return View(data);
 
         }

@@ -12,6 +12,7 @@ namespace MVC5Course
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");//Web From有很多檔案都是axd結尾
+            routes.IgnoreRoute("{resource}.aspx/{*pathInfo}");//對應投影片，可以修改路由偽裝成php.jsp...
 
             routes.MapRoute(
                 name: "Default",

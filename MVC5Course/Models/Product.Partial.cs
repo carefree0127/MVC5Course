@@ -5,7 +5,8 @@ namespace MVC5Course.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    
+    using ValidationAttribute;
+
     [MetadataType(typeof(ProductMetaData))]
     public partial class Product
     {
@@ -34,7 +35,11 @@ namespace MVC5Course.Models
         [Required]
         public int ProductId { get; set; }
 
+        //自訂驗證屬性，後端驗證
+        [商品名稱必須包含Ruby字串(ErrorMessage ="商品名稱必須包含Ruby字串")]
+        [MaxWordLenAttrbute(10)]
         [Required(ErrorMessage = "請輸入商品名稱")]
+        [DisplayName("商品名稱")]
         //[MinLength(3), MaxLength(30)]
         //[RegularExpression("(.+)-(.+)", ErrorMessage = "商品名稱格式錯誤")]
         public string ProductName { get; set; }
