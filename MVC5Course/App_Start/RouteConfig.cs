@@ -16,7 +16,8 @@ namespace MVC5Course
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "{controller}/{action}.aspx/{id}",
+                //url: "{controller}/{action}/{id}",
                 //url: "{action}/{controller}/{id}",
                 //可自訂URL，可把關鍵字.Metadata加在網址增加SEO
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
