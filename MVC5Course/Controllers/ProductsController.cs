@@ -221,7 +221,7 @@ namespace MVC5Course.Controllers
         //ViewModel的使用，注意ViewModel新增時資料內容類別要清空
         //FormCollection要用HTTP POST
         //LINQ TO ENTITY轉型失敗 -> 先用區域變數存資料
-        public ActionResult ListProducts(string q)//表單送出，只要有ModelBinding就會有ModelState -> 才會套用到HTML
+        public ActionResult ListProducts(string q,int Stock_S=0,int Stock_E=9999)//表單送出，只要有ModelBinding就會有ModelState -> 才會套用到HTML
         {
             //var data = db.Product
             //    .Where(p => p.Active.Value == true)
@@ -238,6 +238,7 @@ namespace MVC5Course.Controllers
             if (!String.IsNullOrEmpty(q)) {
                 data = data.Where(p => p.ProductName.Contains(q));
             }
+            data = data.Where(p => p.Stock > Stock_S && p.Stock < Stock_E);
 
             ViewData.Model = data
                 .Select(p => new ProductLiteVM()

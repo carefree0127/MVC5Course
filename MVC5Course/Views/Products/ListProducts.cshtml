@@ -13,6 +13,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<form method="get">
+    篩選:商品名稱 @Html.TextBox("q") 商品庫存 @Html.TextBox("Stock_S")~@Html.TextBox("Stock_E")
+    <button>搜尋</button>
+</form>
+
 <table class="table">
     <tr>
         <th>
