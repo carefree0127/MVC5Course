@@ -18,6 +18,7 @@ namespace MVC5Course.Controllers
 
         #region 自訂ActionFilter，可把共用的資料抽取出來，讓Controller更輕量
         [SharedViewBag(MyProperty = "SharedViewBag MyProperty Test")]
+        [LocalOnly]//判斷是否在本機執行，若不是就導回首頁，可加在BaseController的Debug() <-練習待補
         public ActionResult About()
         {
             //ViewBag.Message = "Your application description page.";
