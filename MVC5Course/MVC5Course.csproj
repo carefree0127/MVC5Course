@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Clients1Controller.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\EFController.cs" />
     <Compile Include="Controllers\HelloController.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="ActionFilters\LocalOnlyAttribute.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MetroController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="ActionFilters\SharedViewBagAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -590,6 +592,16 @@
     <Content Include="Views\Metro\_Layout.cshtml" />
     <Content Include="Views\Metro\_ViewStart.cshtml" />
     <Content Include="Views\Metro\Tasks.cshtml" />
+    <Content Include="Views\Clients1\Create.cshtml" />
+    <Content Include="Views\Clients1\Delete.cshtml" />
+    <Content Include="Views\Clients1\Details.cshtml" />
+    <Content Include="Views\Clients1\Edit.cshtml" />
+    <Content Include="Views\Clients1\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

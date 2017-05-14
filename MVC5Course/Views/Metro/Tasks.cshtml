@@ -1,6 +1,20 @@
-﻿@section breadcrumb {
+﻿@*@model <>*@
+@section breadcrumb {
     <li><a href="@Url.Action("Tasks", "Metro")">Tasks</a></li>
 }
+@*@this.*@
+@*可觀察可取得的屬性或可呼叫的方法*@
+
+@if (IsAjax)
+{
+    //如果是Ajax，就不套用Layout
+    Layout = "";
+}
+
+@User.Identity.Name
+@*登入驗證儘量不要用session*@
+@*寫一個ActionFilter，在Action執行前判斷，沒有登入就導到登入頁面*@
+
 <div class="row-fluid">
 
     <div class="span7">
