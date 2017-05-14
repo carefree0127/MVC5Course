@@ -23,6 +23,9 @@ namespace MVC5Course.Controllers
         {
             //ViewBag.Message = "Your application description page.";
 
+            //web.config
+            throw new ArgumentException("Error Handle!!!");
+
             return View();
         }
 
