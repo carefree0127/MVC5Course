@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
 using MVC5Course.Models.ViewModel;
+using System.Data.Entity.Infrastructure;
 
 namespace MVC5Course.Controllers
 {
@@ -116,6 +117,9 @@ namespace MVC5Course.Controllers
         //接表單資料
         [HttpPost]//區分執行哪一個Action
         [ValidateAntiForgeryToken]
+        //[HandleError]
+        //客製化錯誤訊息
+        [HandleError(ExceptionType =typeof(DbUpdateException),View = "Error_DbUpdateException")]
         public ActionResult Create([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)//用表單的Name屬性
         {
             if (ModelState.IsValid)//資料驗證 -> model

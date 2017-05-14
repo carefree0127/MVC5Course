@@ -409,6 +409,7 @@
     <Content Include="Views\EF\Edit.cshtml" />
     <Content Include="Views\EF\Details.cshtml" />
     <Content Include="Views\Clients\BatchUpdate.cshtml" />
+    <Content Include="Views\Shared\Error_DbUpdateException.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
