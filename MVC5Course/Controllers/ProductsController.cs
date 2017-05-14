@@ -46,8 +46,8 @@ namespace MVC5Course.Controllers
 
         #region 20170506: 建立時預設的
         // GET: Products
-        [OutputCache(Duration = 300,Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
-        //Cache使用要小心，適當使用可以提升效能
+        [OutputCache(Duration = 5,Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
+        //Cache使用要小心，適當使用可以提升效能，Duration = 300(5分鐘)
         public ActionResult Index(bool Active = true)//model binding
         {
             #region EF取資料語法 篩選條件
