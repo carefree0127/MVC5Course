@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\EFController.cs" />
     <Compile Include="Controllers\HelloController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -276,6 +277,7 @@
     </Compile>
     <Compile Include="Models\ValidationAttribute\MaxWordLenAttrbute.cs" />
     <Compile Include="Models\ValidationAttribute\商品名稱必須包含Ruby字串Attribute.cs" />
+    <Compile Include="Models\ViewModel\ClientBatchUpdateVM.cs" />
     <Compile Include="Models\ViewModel\ProductLiteVM.cs" />
     <Compile Include="Models\ViewModel\ProductSearchVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -404,6 +406,7 @@
     <Content Include="Views\EF\Create.cshtml" />
     <Content Include="Views\EF\Edit.cshtml" />
     <Content Include="Views\EF\Details.cshtml" />
+    <Content Include="Views\Clients\BatchUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

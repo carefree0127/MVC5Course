@@ -158,17 +158,31 @@ namespace MVC5Course.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+        //public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+        public ActionResult Edit(int id, FormCollection form)
         {
-            if (ModelState.IsValid)
+            #region ModelBinding 延遲驗證 public ActionResult Edit(int id, FormCollection form)
+
+            var product = repo.get單筆資料ByProductID(id);
+            if (TryUpdateModel<Product>(product,new string[] { "ProductId", "ProductName", "Price", "Active", "Stock" }))
+                //注意Model Binding欄位要隔開，不能全部當一個字串
             {
-                //db.Entry(product).State = EntityState.Modified;
-                //db.SaveChanges();
-                //改用Repository 擴充ProductRepository Update方法
-                repo.Update(product);
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
+            #endregion
+            #region ModelBinding 強型別 public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+            //if (ModelState.IsValid)
+            //{
+            //    //db.Entry(product).State = EntityState.Modified;
+            //    //db.SaveChanges();
+            //    //改用Repository 擴充ProductRepository Update方法
+            //    repo.Update(product);
+            //    repo.UnitOfWork.Commit();
+            //    return RedirectToAction("Index");
+            //}
+            #endregion
+
             return View(product);
         }
 
