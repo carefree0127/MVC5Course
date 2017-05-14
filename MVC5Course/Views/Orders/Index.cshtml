@@ -22,7 +22,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Client.FirstName)
         </th>
-        <th></th>
+        @*<th></th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -39,11 +39,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Client.FirstName)
         </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.OrderId }) |
             @Html.ActionLink("Details", "Details", new { id=item.OrderId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.OrderId })
-        </td>
+        </td>*@
     </tr>
 }
 
