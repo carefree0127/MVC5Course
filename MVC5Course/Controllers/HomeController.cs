@@ -15,8 +15,9 @@ namespace MVC5Course.Controllers
         {
             return View();
         }
-        //缺一個PartialAbout()頁面
-        [SharedViewBag]
+
+        #region 自訂ActionFilter，可把共用的資料抽取出來，讓Controller更輕量
+        [SharedViewBag(MyProperty = "SharedViewBag MyProperty Test")]
         public ActionResult About()
         {
             //ViewBag.Message = "Your application description page.";
@@ -37,10 +38,10 @@ namespace MVC5Course.Controllers
             {
                 return View("About");
             }
-           
-        }
 
-        
+        }
+        #endregion
+
         public ActionResult Contact()
         {
             //ViewBag.Message = "Your contact page.";
