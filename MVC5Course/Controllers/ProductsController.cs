@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MVC5Course.Models;
 using MVC5Course.Models.ViewModel;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 
 namespace MVC5Course.Controllers
 {
@@ -120,25 +121,35 @@ namespace MVC5Course.Controllers
         //[HandleError]
         //客製化錯誤訊息
         [HandleError(ExceptionType =typeof(DbUpdateException),View = "Error_DbUpdateException")]
+        //把if (ModelState.IsValid)註解 -> 測試實體驗證模型發生Exception
+        [HandleError(ExceptionType = typeof(DbEntityValidationException), View = "Error_DbEntityValidationException")]
         public ActionResult Create([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)//用表單的Name屬性
         {
-            if (ModelState.IsValid)//資料驗證 -> model
+            //if (ModelState.IsValid)//資料驗證 -> model
             {
-                // 與Entity FrameWork相關的語法
-                //db.Product.Add(product);
-                //db.SaveChanges();
-                //
-                //改用Repository
-                repo.Add(product);
-                repo.UnitOfWork.Commit();
-                //
 
-                //新增成功訊息在Index頁顯示
-                TempData["CP_Result"] = "商品資料新增成功";
-                return RedirectToAction("ListProducts");
+                
+                    repo.Add(product);
+                    repo.UnitOfWork.Commit();
+                    return RedirectToAction("Index");
+                
+
+
+                //// 與Entity FrameWork相關的語法
+                ////db.Product.Add(product);
+                ////db.SaveChanges();
+                ////
+                ////改用Repository
+                //repo.Add(product);
+                //repo.UnitOfWork.Commit();
+                ////
+
+                ////新增成功訊息在Index頁顯示
+                //TempData["CP_Result"] = "商品資料新增成功";
+                //return RedirectToAction("ListProducts");
             }
 
-            ViewBag.product = product;//弱型別，動態，沒有提示可用
+            //ViewBag.product = product;//弱型別，動態，沒有提示可用
 
             return View(product); //強型別，只能傳一個model，有多個model要傳遞的話要用ViewBag或者定義一個class去包
         }

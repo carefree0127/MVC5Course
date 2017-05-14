@@ -14,10 +14,10 @@ namespace MVC5Course.Models
         public int 訂單數量 {
             get {
                 //效能問題
-                //return this.OrderLine.Count; //需注意當延遲載入功能被關閉時會有問題
+                return this.OrderLine.Count; //需注意當延遲載入功能被關閉時會有問題
                 //return this.OrderLine.Where(p => p.Qty > 400).Count;
                 //return this.OrderLine.Where(p => p.Qty > 400).ToList().Count;
-                return this.OrderLine.Count(p => p.Qty > 400);
+                //return this.OrderLine.Count(p => p.Qty > 400);
             }
         }
 
@@ -27,6 +27,27 @@ namespace MVC5Course.Models
             {
                 return this.CreatedOn;
             }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (this.Price > 100 && this.Stock > 5)
+            {
+                yield return new ValidationResult("價格與庫存數量不合理",
+                    new string[] { "Price", "Stock" });
+            }
+
+            using (var db = new FabricsEntities())
+            {
+                var prod = db.Product.FirstOrDefault(p => p.ProductId == this.ProductId);
+                if (prod.OrderLine.Count() > 5 && this.Stock == 0)
+                {
+                    yield return new ValidationResult("Stock 與訂單數量不匹配",
+                        new string[] { "Stock" });
+                }
+            }
+
+            yield break;
         }
     }
     
