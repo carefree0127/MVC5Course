@@ -11,6 +11,7 @@ using MVC5Course.Models.ViewModel;
 
 namespace MVC5Course.Controllers
 {
+    [Authorize]//不要再用Session執行檢查有沒有登入
     public class ProductsController : Controller
     {
         //ADO.NET Data Provider
@@ -162,7 +163,6 @@ namespace MVC5Course.Controllers
         public ActionResult Edit(int id, FormCollection form)
         {
             #region ModelBinding 延遲驗證 public ActionResult Edit(int id, FormCollection form)
-
             var product = repo.get單筆資料ByProductID(id);
             if (TryUpdateModel<Product>(product,new string[] { "ProductId", "ProductName", "Price", "Active", "Stock" }))
                 //注意Model Binding欄位要隔開，不能全部當一個字串
@@ -172,6 +172,8 @@ namespace MVC5Course.Controllers
             }
             #endregion
             #region ModelBinding 強型別 public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+            //若需求改變，部分資料沒有要更新的話，那些資料會變為預設值，造成意外更新
+
             //if (ModelState.IsValid)
             //{
             //    //db.Entry(product).State = EntityState.Modified;
