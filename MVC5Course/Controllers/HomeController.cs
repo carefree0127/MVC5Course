@@ -15,17 +15,35 @@ namespace MVC5Course.Controllers
         {
             return View();
         }
-
+        //缺一個PartialAbout()頁面
+        [SharedViewBag]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            //ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
+        [SharedViewBag]
+        public ActionResult PartialAbout()
+        {
+            //練習32待補
+            //ViewBag.Message = "Your application description page.";
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("About");
+            }
+            else
+            {
+                return View("About");
+            }
+           
+        }
+
+        
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            //ViewBag.Message = "Your contact page.";
 
             return View();
         }

@@ -11,7 +11,7 @@ using MVC5Course.Models.ViewModel;
 
 namespace MVC5Course.Controllers
 {
-    [Authorize]//不要再用Session執行檢查有沒有登入
+    //[Authorize]//不要再用Session執行檢查有沒有登入
     public class ProductsController : Controller
     {
         //ADO.NET Data Provider
