@@ -16,16 +16,16 @@ namespace MVC5Course.Controllers
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             filterContext.Controller.ViewBag.Message = "OnActionExecuted-2";
+        }            
+
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
+        {
+            filterContext.Controller.ViewBag.Message = MyProperty;
         }
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
             filterContext.Controller.ViewBag.Message = "OnResultExecuted-3";
-        }
-
-        public override void OnResultExecuting(ResultExecutingContext filterContext)
-        {
-            filterContext.Controller.ViewBag.Message = MyProperty;
         }
     }
 }

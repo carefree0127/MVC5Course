@@ -5,6 +5,7 @@ namespace MVC5Course.Controllers
 {
     internal class LocalOnlyAttribute : ActionFilterAttribute
     {
+        //在Action執行前
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (!filterContext.RequestContext.HttpContext.Request.IsLocal)
