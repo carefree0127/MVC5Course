@@ -1,0 +1,29 @@
+﻿@{ 
+    Layout = "";//不顯示Layout
+    ViewBag.TEXT = "<strong style='color:red;'>123</strong>";
+}
+
+@ViewBag.TEXT
+
+@Html.Raw(ViewBag.TEXT)
+
+@DateTime.Now
+
+@(1+2)
+
+@if (ViewBag.IsEnabled!=null && ViewBag.IsEnabled)//不能是空值
+{
+    @*@:啟用*@
+    <span>啟用</span>
+    <text>啟用</text>
+}
+else
+{
+    @*@:停用*@
+    <span>停用</span>
+    <text>停用</text>
+}
+
+test@gmail.com
+
+TEXT@(ViewBag.IsEnabled)

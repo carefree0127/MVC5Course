@@ -76,5 +76,12 @@ namespace MVC5Course.Controllers
         }
         #endregion
 
+
+        public ActionResult VT()
+        {
+            ViewBag.IsEnabled = true;
+            return View();
+        }
+
     }
 }
