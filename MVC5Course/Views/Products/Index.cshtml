@@ -69,7 +69,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
             @*@Html.ActionLink("Details", "Details", new { id=item.ProductId }) |*@
-            @Ajax.ActionLink("Details", "Details", new { id = item.ProductId },new AjaxOptions { UpdateTargetId="details"}) |
+            @Ajax.ActionLink("Details", "Details", new { id = item.ProductId },new AjaxOptions { UpdateTargetId="details",Confirm="確定要載入嗎？",HttpMethod="Post"}) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
         </td>
     </tr>
