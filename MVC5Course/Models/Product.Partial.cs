@@ -73,9 +73,9 @@ namespace MVC5Course.Models
         //[Range(0, 100, ErrorMessage = "請設定正確的商品庫存數量")]
         public Nullable<decimal> Stock { get; set; }
 
-        [DataType(DataType.Date)]//瀏覽器給的UI IE沒有，F12 type="date"，一定要加[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",ApplyFormatInEditMode =true)]，且格式一定要設定yyyy-MM-dd
-        //Chrome只認得yyyy-MM-dd的格式
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",ApplyFormatInEditMode =true)]
+        //[DataType(DataType.Date)]//瀏覽器給的UI IE沒有，F12 type="date"，一定要加[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",ApplyFormatInEditMode =true)]，且格式一定要設定yyyy-MM-dd
+        ////Chrome只認得yyyy-MM-dd的格式
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public object CreatedOn { get; set; }
 
         //[StringLength(80, ErrorMessage="欄位長度不得大於 80 個字元")]
