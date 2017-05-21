@@ -4,6 +4,9 @@
 
 @{
     ViewBag.Title = "Index";
+    if (IsAjax) {
+        Layout = null;
+    }
 }
 
 
