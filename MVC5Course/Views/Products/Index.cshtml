@@ -10,6 +10,8 @@
     if (ViewBag.qqq == ViewData["qqq"]) {
 
     }
+
+    if (IsAjax) { Layout = null; }
 }
 @if (TempData["CP_Result"] != null)
 {
