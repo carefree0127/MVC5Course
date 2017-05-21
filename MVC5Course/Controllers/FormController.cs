@@ -9,8 +9,6 @@ namespace MVC5Course.Controllers
 {
     public class FormController : BaseController
     {
-        //private FabricsEntities db = new FabricsEntities();
-
         // GET: Form
         public ActionResult Index()
         {
