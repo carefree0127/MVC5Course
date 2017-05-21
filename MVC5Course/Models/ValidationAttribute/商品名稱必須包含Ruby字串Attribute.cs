@@ -15,6 +15,9 @@ namespace MVC5Course.Models.ValidationAttribute
 
         public override bool IsValid(object value)
         {
+            if (value == null) {
+                return true;
+            }
             var str = (string)value;
             return str.Contains("Ruby");
         }
