@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace MVC5Course.Controllers
 {
-    public class FormController : Controller
+    public class FormController : BaseController
     {
-        private FabricsEntities db = new FabricsEntities();
+        //private FabricsEntities db = new FabricsEntities();
 
         // GET: Form
         public ActionResult Index()
