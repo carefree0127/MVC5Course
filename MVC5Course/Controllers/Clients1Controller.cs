@@ -97,7 +97,8 @@ namespace MVC5Course.Controllers
             //建立下拉選項
             var items = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             ViewBag.CreditRating = new SelectList(items);
-
+            //ViewBag.CreditRating = new SelectList(items, "CreditRating", "CreditRating", client.CreditRating);
+            
             ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
